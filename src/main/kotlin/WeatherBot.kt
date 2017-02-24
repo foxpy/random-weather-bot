@@ -15,6 +15,8 @@ class WeatherBot(telegramToken: String) {
             .build()
     val bot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)
 
+    val weatherGenerator = WeatherGenerator()
+
     var logger = LoggerFactory.getLogger(WeatherBot::class.java)
 
     fun run() {
@@ -38,7 +40,8 @@ class WeatherBot(telegramToken: String) {
         val text = msg.text()
 
         if (text == "/weather") {
-            bot.sendText(chatId, "Random Weather.")
+            bot.sendText(chatId, weatherGenerator.randomWeather() + "\n" +
+                    "Temperature: " + weatherGenerator.randomTemperature())
         }
     }
 
