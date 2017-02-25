@@ -42,8 +42,7 @@ class WeatherBot(telegramToken: String) {
 
         when (text) {
             "weather" -> {
-                val reply = "Weather: ${weatherGenerator.randomWeather()}\n" +
-                        "Temperature: ${weatherGenerator.randomTemperature()}"
+                val reply = weatherGenerator.randomize()
 
                 bot.sendText(chatId, reply)
                 return
