@@ -37,11 +37,21 @@ class WeatherBot(telegramToken: String) {
         val from = msg.from()
         logger.info("[${from.id()}] [Received] @${from.username()}: ${msg.text()}")
 
-        val text = msg.text()
+        var text = msg.text()
+        if (text.startsWith("/")) text = text.slice(1..text.lastIndex)
 
-        if (text == "/weather") {
-            bot.sendText(chatId, weatherGenerator.randomWeather() + "\n" +
-                    "Temperature: " + weatherGenerator.randomTemperature())
+        when (text) {
+            "weather" -> {
+                val reply = "Weather: ${weatherGenerator.randomWeather()}\n" +
+                        "Temperature: ${weatherGenerator.randomTemperature()}"
+
+                bot.sendText(chatId, reply)
+                return
+            }
+            "help" -> {
+                bot.sendText(chatId, "Daily random weather for role play chats.")
+                return
+            }
         }
     }
 

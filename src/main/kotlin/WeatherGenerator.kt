@@ -1,7 +1,5 @@
-import java.util.Random
-
 class WeatherGenerator {
-    var random = Random()
+    var random = java.util.Random()
 
     val weathers = arrayOf("snow", "rain", "shit")
 
