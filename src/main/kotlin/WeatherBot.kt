@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 
+
 class WeatherBot(telegramToken: String) {
     val httpClient = OkHttpClient().newBuilder()
             .readTimeout(65, TimeUnit.SECONDS)
@@ -43,7 +44,6 @@ class WeatherBot(telegramToken: String) {
         when (text) {
             "weather" -> {
                 val reply = weatherGenerator.randomize()
-
                 bot.sendText(chatId, reply)
                 return
             }
