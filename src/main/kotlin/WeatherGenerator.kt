@@ -1,27 +1,19 @@
-import java.util.*
+import java.util.Random
 
 
 class WeatherGenerator {
     var random = Random()
+    var time = Time()
 
-    var unixTime = Date().time / 1000
-    var day = unixTime / (60*60*24) - 1
     var currentWeather: String = ""
 
     val hotWeathers = arrayOf("rain", "fair", "shower", "thunderstorm")
     val coldWeathers = arrayOf("snow", "snowstorm", "drizzle")
     val bothWeathers = arrayOf("fog", "wind", "hail", "sunny", "overcast", "cloudy")
 
-    fun randomTemperature() : Int {
-        val min = -20
-        val max = 35
-        return random.nextInt(max + 1 - min) + min
-    }
-
     fun randomize(): String {
-        unixTime = Date().time / 1000
-        if ((unixTime / (60*60*24)) > day) {
-            day = unixTime / (60*60*24)
+        if (time.isNextDay()) {
+            time.update()
 
             val temperature = randomTemperature()
             var weathers = bothWeathers
@@ -36,5 +28,11 @@ class WeatherGenerator {
         else {
             return currentWeather
         }
+    }
+
+    fun randomTemperature() : Int {
+        val min = -20
+        val max = 35
+        return random.nextInt(max + 1 - min) + min
     }
 }
