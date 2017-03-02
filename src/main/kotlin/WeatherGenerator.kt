@@ -9,7 +9,9 @@ class WeatherGenerator {
 
     val hotWeathers = arrayOf("rain", "fair", "shower", "thunderstorm")
     val coldWeathers = arrayOf("snow", "snowstorm", "drizzle")
-    val bothWeathers = arrayOf("fog", "wind", "hail", "sunny", "overcast", "cloudy")
+
+    val bothWeathers = arrayOf("fog", "wind", "hail", "sunny", "sunny", "sunny",
+            "overcast", "overcast", "cloudy", "cloudy")
 
     fun randomize(): String {
         if (time.isNextDay()) {
