@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit
 
 @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
 class WeatherBot(telegramToken: String) {
-    val httpClient = OkHttpClient().newBuilder()
+    val httpClient: OkHttpClient = OkHttpClient().newBuilder()
             .readTimeout(65, TimeUnit.SECONDS)
             .build()
-    val bot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)
+    val bot: TelegramBot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)
 
     val weatherGenerator = WeatherGenerator()
 
