@@ -13,8 +13,6 @@ class WeatherGenerator {
 
     fun randomize(): String {
         if (time.isNextDay()) {
-            time.update()
-
             val temperature = randomTemperature()
             var weathers = bothWeathers
 
