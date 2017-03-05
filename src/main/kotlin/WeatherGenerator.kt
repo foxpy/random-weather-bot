@@ -2,8 +2,8 @@ import java.util.Random
 
 
 class WeatherGenerator {
-    var random = Random()
-    var time = Time()
+    val random = Random()
+    val time = Time()
 
     var currentWeather: String = ""
 
@@ -15,7 +15,7 @@ class WeatherGenerator {
 
     fun randomize(): String {
         if (time.isNextDay()) {
-            val temperature = randomTemperature()
+            val temperature = randomTemperature(-20, 35)
             var weathers = bothWeathers
 
             if (temperature >= 0) weathers += hotWeathers
@@ -30,9 +30,7 @@ class WeatherGenerator {
         }
     }
 
-    fun randomTemperature() : Int {
-        val min = -20
-        val max = 35
+    fun randomTemperature(min: Int, max: Int) : Int {
         return random.nextInt(max + 1 - min) + min
     }
 }
