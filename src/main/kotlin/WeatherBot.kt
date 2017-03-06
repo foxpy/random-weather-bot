@@ -11,11 +11,13 @@ import java.util.concurrent.TimeUnit
 
 
 @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
-class WeatherBot(telegramToken: String) {
+class WeatherBot(telegramToken: String, adminId : String) {
     val httpClient: OkHttpClient = OkHttpClient().newBuilder()
             .readTimeout(65, TimeUnit.SECONDS)
             .build()
+
     val bot: TelegramBot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)
+    val adminId = adminId.toLong()
 
     val weatherGenerator = WeatherGenerator()
 
@@ -54,11 +56,19 @@ class WeatherBot(telegramToken: String) {
             "weather" -> {
                 val reply = weatherGenerator.randomize()
                 bot.sendText(chatId, reply)
-                return
+            }
+            "debug" -> {
+                if (chatId == adminId) {
+                    weatherGenerator.time.day--
+                    logger.info("Day set to ${weatherGenerator.time.day}")
+                    bot.sendText(chatId, "Success!")
+                }
+                else {
+                    bot.sendText(chatId, "Nice try!")
+                }
             }
             "help" -> {
                 bot.sendText(chatId, "Daily random weather for role play chats.")
-                return
             }
         }
     }

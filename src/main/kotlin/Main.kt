@@ -1,7 +1,8 @@
 fun main(args: Array<String>) {
     val telegramToken = getEnv("TELEGRAM_TOKEN")
-    val bot = WeatherBot(telegramToken)
+    val adminId = getEnv("ADMIN_ID")
 
+    val bot = WeatherBot(telegramToken, adminId)
     bot.run()
 }
 
