@@ -49,15 +49,14 @@ class WeatherBot(telegramToken: String, adminId : String) {
         val from = msg.from()
         logger.info("[${from.id()}] [Received] @${from.username()}: ${msg.text()}")
 
-        var text = msg.text()
-        if (text.startsWith("/")) text = text.slice(1..text.lastIndex)
+        val text = msg.text()
 
         when (text) {
-            "weather" -> {
+            "/weather" -> {
                 val reply = weatherGenerator.randomize()
                 bot.sendText(chatId, reply)
             }
-            "debug" -> {
+            "/debug" -> {
                 if (chatId == adminId) {
                     weatherGenerator.time.day--
                     logger.info("Day set to ${weatherGenerator.time.day}")
@@ -67,7 +66,7 @@ class WeatherBot(telegramToken: String, adminId : String) {
                     bot.sendText(chatId, "Nice try!")
                 }
             }
-            "help" -> {
+            "/help" -> {
                 bot.sendText(chatId, "Daily random weather for role play chats.")
             }
         }
