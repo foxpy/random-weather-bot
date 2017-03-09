@@ -14,4 +14,4 @@ Command | Description
 Variable | Description
 ------------ | -------------
 **TELEGRAM_TOKEN** | bot token, take it from [BotFather](https://t.me/BotFather).
-**ADMIN_ID** | your Telegram ID (need for debug). Taken from [IDBot](https://t.me/myidbot).
+**ADMIN_ID** | your Telegram ID (need for `/change`). Taken from [IDBot](https://t.me/myidbot).
