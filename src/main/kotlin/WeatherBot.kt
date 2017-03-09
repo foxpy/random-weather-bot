@@ -16,7 +16,7 @@ class WeatherBot(telegramToken: String, adminId : String) {
             .build()
 
     val bot: TelegramBot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)
-    val adminId = adminId.toLong()
+    val adminId = adminId.toInt()
 
     val weatherGenerator = WeatherGenerator()
 
@@ -51,7 +51,7 @@ class WeatherBot(telegramToken: String, adminId : String) {
                 bot.sendText(chatId, reply)
             }
             "/debug" -> {
-                if (chatId == adminId) {
+                if (from.id() == adminId) {
                     weatherGenerator.time.day--
                     logger.info("Day set to ${weatherGenerator.time.day}")
                     bot.sendText(chatId, "Success!")
