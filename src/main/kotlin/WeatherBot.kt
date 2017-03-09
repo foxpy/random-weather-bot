@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 
 
-@Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
 class WeatherBot(telegramToken: String, adminId : String) {
     val httpClient: OkHttpClient = OkHttpClient().newBuilder()
             .readTimeout(65, TimeUnit.SECONDS)
@@ -26,15 +25,10 @@ class WeatherBot(telegramToken: String, adminId : String) {
     fun run() {
         logger.info("Started.")
         var lastUpdateId = 0
-        var updates = bot.execute(GetUpdates().timeout(60).offset(lastUpdateId)).updates()
 
         while (true) {
-            try {
-                updates = bot.execute(GetUpdates().timeout(60).offset(lastUpdateId)).updates() ?: continue
-            }
-            catch(e: Exception) {
-                continue
-            }
+            val updates = try { bot.execute(GetUpdates().timeout(60).offset(lastUpdateId)).updates() ?: continue }
+            catch (e: Exception) { continue }
 
             for (update in updates) {
                 lastUpdateId = update.updateId() + 1
