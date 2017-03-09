@@ -50,10 +50,9 @@ class WeatherBot(telegramToken: String, adminId : String) {
                 val reply = weatherGenerator.randomize()
                 bot.sendText(chatId, reply)
             }
-            "/debug" -> {
+            "/change" -> {
                 if (from.id() == adminId) {
                     weatherGenerator.time.day--
-                    logger.info("Day set to ${weatherGenerator.time.day}")
                     bot.sendText(chatId, "Success!")
                 }
                 else {
@@ -61,6 +60,9 @@ class WeatherBot(telegramToken: String, adminId : String) {
                 }
             }
             "/help" -> {
+                bot.sendText(chatId, "Just type '/weather'.")
+            }
+            "/start" -> {
                 bot.sendText(chatId, "Daily random weather for role play chats.")
             }
         }
