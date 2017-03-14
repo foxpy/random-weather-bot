@@ -52,7 +52,7 @@ class WeatherBot(telegramToken: String, adminId : String) {
             }
             "/change" -> {
                 if (from.id() == adminId) {
-                    weatherGenerator.time.day--
+                    weatherGenerator.lastUpdateDate = ""
                     bot.sendText(chatId, "Success!")
                 }
                 else {

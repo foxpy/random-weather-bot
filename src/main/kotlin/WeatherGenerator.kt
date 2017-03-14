@@ -1,11 +1,12 @@
+import java.time.LocalDate
 import java.util.Random
 
 
 class WeatherGenerator {
     val random = Random()
-    val time = Time()
+    var currentWeather = ""
 
-    var currentWeather: String = ""
+    var lastUpdateDate = ""
 
     val hotWeathers  = Array(5,  {"rain"})   + Array(20, {"fair"}) +
                        Array(3,  {"shower"}) + Array(2,  {"thunderstorm"})
@@ -17,7 +18,9 @@ class WeatherGenerator {
                        Array(3,  {"fog"})     + Array(2,  {"hail"})
 
     fun randomize(): String {
-        if (time.isNextDay()) {
+        if (lastUpdateDate != LocalDate.now().toString()) {
+            lastUpdateDate = LocalDate.now().toString()
+
             val temperature = randomTemperature(-20, 35)
             var weathers = bothWeathers
 
