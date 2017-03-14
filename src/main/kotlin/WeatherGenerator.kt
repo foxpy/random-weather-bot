@@ -26,11 +26,8 @@ class WeatherGenerator {
 
             currentWeather = "Weather: ${weathers[random.nextInt(weathers.size)]}\n" +
                     "Temperature: ${temperature}ºC"
-            return currentWeather
         }
-        else {
-            return currentWeather
-        }
+        return currentWeather
     }
 
     fun randomTemperature(min: Int, max: Int) : Int {
