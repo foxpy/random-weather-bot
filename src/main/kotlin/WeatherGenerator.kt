@@ -1,4 +1,5 @@
 import java.time.LocalDate
+import java.time.ZoneId
 import java.util.Random
 
 
@@ -18,8 +19,8 @@ class WeatherGenerator {
                        Array(3,  {"fog"})     + Array(2,  {"hail"})
 
     fun randomize(): String {
-        if (lastUpdateDate != LocalDate.now().toString()) {
-            lastUpdateDate = LocalDate.now().toString()
+        if (lastUpdateDate != LocalDate.now(ZoneId.of("UTC")).toString()) {
+            lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).toString()
 
             val temperature = randomTemperature(-20, 35)
             var weathers = bothWeathers
