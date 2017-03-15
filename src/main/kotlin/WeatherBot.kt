@@ -20,7 +20,7 @@ class WeatherBot(telegramToken: String, adminId : String) {
 
     val weatherGenerator = WeatherGenerator()
 
-    var logger = LoggerFactory.getLogger(WeatherBot::class.java)
+    val logger = LoggerFactory.getLogger(WeatherBot::class.java)!!
 
     fun run() {
         logger.info("Started.")
@@ -41,9 +41,10 @@ class WeatherBot(telegramToken: String, adminId : String) {
     fun processMessage(msg: Message) {
         val chatId = msg.chat().id()
         val from = msg.from()
-        logger.info("[${from.id()}] [Received] @${from.username()}: ${msg.text()}")
-
         val text = msg.text()
+        val fromId = from.id()
+
+        logger.info("[$fromId] [Received] @${from.username()}: $text")
 
         when (text) {
             "/weather" -> {
@@ -51,20 +52,14 @@ class WeatherBot(telegramToken: String, adminId : String) {
                 bot.sendText(chatId, reply)
             }
             "/change" -> {
-                if (from.id() == adminId) {
-                    weatherGenerator.lastUpdateDate = ""
+                if (fromId == adminId) {
+                    weatherGenerator.change()
                     bot.sendText(chatId, "Success!")
                 }
-                else {
-                    bot.sendText(chatId, "Nice try!")
-                }
+                else bot.sendText(chatId, "Nice try!")
             }
-            "/help" -> {
-                bot.sendText(chatId, "Just type '/weather'.")
-            }
-            "/start" -> {
-                bot.sendText(chatId, "Daily random weather for role play chats.")
-            }
+            "/help" -> bot.sendText(chatId, "Just type '/weather'.")
+            "/start" -> bot.sendText(chatId, "Daily random weather for role play chats.")
         }
     }
 
