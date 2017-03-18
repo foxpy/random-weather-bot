@@ -9,9 +9,9 @@ class WeatherGenerator {
 
     private var lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1)!!
 
-    private val hotWeathers  = Array(5,  {"rain"})   + Array(20, {"fair"}) +
-                               Array(3,  {"shower"}) + Array(2,  {"thunderstorm"})
-    private val coldWeathers = Array(20, {"snow"})   + Array(5,  {"snowstorm"}) +
+    private val hotWeathers  = Array(5,  {"rain"})    + Array(20, {"fair"}) +
+                               Array(3,  {"shower"})  + Array(2,  {"thunderstorm"})
+    private val coldWeathers = Array(20, {"snow"})    + Array(5,  {"snowstorm"}) +
                                Array(5,  {"drizzle"})
 
     private val bothWeathers = Array(25, {"sunny"})   + Array(20, {"overcast"}) +
@@ -23,10 +23,7 @@ class WeatherGenerator {
             lastUpdateDate = LocalDate.now(ZoneId.of("UTC"))
 
             val temperature = randomTemperature(-20, 35)
-            var weathers = bothWeathers
-
-            if (temperature >= 0) weathers += hotWeathers
-            else weathers += coldWeathers
+            val weathers = bothWeathers + if (temperature >= 0) hotWeathers else coldWeathers
 
             currentWeather = "Weather: ${weathers[random.nextInt(weathers.size)]}\n" +
                     "Temperature: $temperature" + "ºC"
