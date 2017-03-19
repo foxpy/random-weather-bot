@@ -9,24 +9,24 @@ class WeatherGenerator {
 
     private var lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1)!!
 
-    private val hotWeathers  = Array(5,  {"rain"})    + Array(20, {"fair"}) +
-                               Array(3,  {"shower"})  + Array(2,  {"thunderstorm"})
-    private val coldWeathers = Array(20, {"snow"})    + Array(5,  {"snowstorm"}) +
+    private val hotWeathers  = Array(10, {"rain"})    + Array(5,  {"thunderstorm"}) +
+                               Array(5,  {"shower"})
+    private val coldWeathers = Array(10, {"snow"})    + Array(5,  {"snowstorm"}) +
                                Array(5,  {"drizzle"})
 
-    private val bothWeathers = Array(25, {"sunny"})   + Array(20, {"overcast"}) +
-                               Array(10, {"cloudy"})  + Array(10, {"wind"}) +
+    private val bothWeathers = Array(30, {"sunny"})   + Array(20, {"overcast"}) +
+                               Array(15, {"cloudy"})  + Array(10, {"wind"}) +
                                Array(3,  {"fog"})     + Array(2,  {"hail"})
 
     fun randomize(): String {
         if (lastUpdateDate != LocalDate.now(ZoneId.of("UTC"))) {
             lastUpdateDate = LocalDate.now(ZoneId.of("UTC"))
 
-            val temperature = randomTemperature(-20, 35)
+            val temperature = randomTemperature(-25, 35)
             val weathers = bothWeathers + if (temperature >= 0) hotWeathers else coldWeathers
 
             currentWeather = "Weather: ${weathers[random.nextInt(weathers.size)]}\n" +
-                    "Temperature: $temperature" + "ºC"
+                             "Temperature: $temperature" + "ºC"
         }
         return currentWeather
     }
