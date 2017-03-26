@@ -1,3 +1,5 @@
+package com.foxpy.weather
+
 fun main(args: Array<String>) {
     val telegramToken = getEnv("TELEGRAM_TOKEN")
     val adminId = getEnv("ADMIN_ID")

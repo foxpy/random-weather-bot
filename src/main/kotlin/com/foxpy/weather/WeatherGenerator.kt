@@ -1,3 +1,5 @@
+package com.foxpy.weather
+
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Random
@@ -31,7 +33,7 @@ class WeatherGenerator {
         return currentWeather
     }
 
-    fun change() { lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1) }
+    fun change() {lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1)}
 
-    private fun randomTemperature(min: Int, max: Int) : Int { return random.nextInt(max + 1 - min) + min }
+    private fun randomTemperature(min: Int, max: Int): Int {return random.nextInt(max + 1 - min) + min}
 }

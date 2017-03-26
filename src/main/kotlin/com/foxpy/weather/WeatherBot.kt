@@ -1,3 +1,5 @@
+package com.foxpy.weather
+
 import com.pengrad.telegrambot.TelegramBot
 import com.pengrad.telegrambot.TelegramBotAdapter
 import com.pengrad.telegrambot.model.Message
@@ -10,12 +12,12 @@ import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 
 
-class WeatherBot(telegramToken: String, adminId : String) {
+class WeatherBot(telegramToken: String, adminId: String) {
     val httpClient: OkHttpClient = OkHttpClient().newBuilder()
             .readTimeout(65, TimeUnit.SECONDS)
             .build()
 
-    val bot: TelegramBot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)
+    val bot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)!!
     val adminId = adminId.toInt()
 
     val weatherGenerator = WeatherGenerator()
@@ -27,13 +29,13 @@ class WeatherBot(telegramToken: String, adminId : String) {
         var lastUpdateId = 0
 
         while (true) {
-            val updates = try { bot.execute(GetUpdates().timeout(60).offset(lastUpdateId)).updates() ?: continue }
-            catch (e: Exception) { continue }
+            val updates = try {bot.execute(GetUpdates().timeout(60).offset(lastUpdateId)).updates() ?: continue}
+            catch (e: Exception) {continue}
 
             for (update in updates) {
                 lastUpdateId = update.updateId() + 1
                 val message = update.message()
-                message?.text()?.let { processMessage(message) }
+                message?.text()?.let {processMessage(message)}
             }
         }
     }
