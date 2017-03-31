@@ -20,9 +20,9 @@ class WeatherGenerator {
                                Array(15, {"cloudy"})  + Array(10, {"wind"}) +
                                Array(3,  {"fog"})     + Array(2,  {"hail"})
 
-    fun randomize(): String {
+    fun get(): String {
         if (lastUpdateDate != LocalDate.now(ZoneId.of("UTC"))) {
-            lastUpdateDate = LocalDate.now(ZoneId.of("UTC"))
+            updateDate()
 
             val temperature = randomTemperature(-25, 35)
             val weathers = bothWeathers + if (temperature >= 0) hotWeathers else coldWeathers
@@ -36,4 +36,5 @@ class WeatherGenerator {
     fun change() {lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1)}
 
     private fun randomTemperature(min: Int, max: Int): Int {return random.nextInt(max + 1 - min) + min}
+    private fun updateDate() {lastUpdateDate = LocalDate.now(ZoneId.of("UTC"))}
 }

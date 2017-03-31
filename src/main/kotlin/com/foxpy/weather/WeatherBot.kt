@@ -14,8 +14,7 @@ import java.util.concurrent.TimeUnit
 
 class WeatherBot(telegramToken: String, adminId: String) {
     val httpClient: OkHttpClient = OkHttpClient().newBuilder()
-            .readTimeout(65, TimeUnit.SECONDS)
-            .build()
+            .readTimeout(65, TimeUnit.SECONDS).build()
 
     val bot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)!!
     val adminId = adminId.toInt()
@@ -25,7 +24,7 @@ class WeatherBot(telegramToken: String, adminId: String) {
     val logger = LoggerFactory.getLogger(WeatherBot::class.java)!!
 
     fun run() {
-        logger.info("Started.")
+        logger.info("[Started]")
         var lastUpdateId = 0
 
         while (true) {
@@ -42,19 +41,17 @@ class WeatherBot(telegramToken: String, adminId: String) {
 
     fun processMessage(msg: Message) {
         val chatId = msg.chat().id()
-        val from = msg.from()
         val text = msg.text()
-        val fromId = from.id()
 
-        logger.info("[$fromId] [Received] @${from.username()}: $text")
+        logger.info("[$chatId] [Received] [@${msg.from().username()}: $text]")
 
         when (text) {
             "/weather" -> {
-                val reply = weatherGenerator.randomize()
+                val reply = weatherGenerator.get()
                 bot.sendText(chatId, reply)
             }
             "/change" -> {
-                if (fromId == adminId) {
+                if (msg.from().id() == adminId) {
                     weatherGenerator.change()
                     bot.sendText(chatId, "Success!")
                 }
@@ -65,7 +62,7 @@ class WeatherBot(telegramToken: String, adminId: String) {
         }
     }
 
-    fun TelegramBot.sendText(chatId: Long, text: String, replyMarkup: Keyboard? = ReplyKeyboardHide()) {
+    private fun TelegramBot.sendText(chatId: Long, text: String, replyMarkup: Keyboard? = ReplyKeyboardHide()) {
         this.execute(SendMessage(chatId, text).replyMarkup(replyMarkup))
     }
 }
