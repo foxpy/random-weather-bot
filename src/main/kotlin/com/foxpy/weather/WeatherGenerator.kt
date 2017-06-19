@@ -11,30 +11,32 @@ class WeatherGenerator {
 
     private var lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1)!!
 
-    private val hotWeathers  = Array(10, {"rain"})    + Array(5,  {"thunderstorm"}) +
+    private val hotWeathers  = Array(20, {"rain"})    + Array(5,  {"thunderstorm"}) +
                                Array(5,  {"shower"})
-    private val coldWeathers = Array(10, {"snow"})    + Array(5,  {"snowstorm"}) +
+    private val coldWeathers = Array(20, {"snow"})    + Array(5,  {"snowstorm"}) +
                                Array(5,  {"drizzle"})
 
     private val bothWeathers = Array(30, {"sunny"})   + Array(20, {"overcast"}) +
-                               Array(15, {"cloudy"})  + Array(10, {"wind"}) +
-                               Array(3,  {"fog"})     + Array(2,  {"hail"})
+                               Array(15, {"cloudy"})  + Array(5,  {"fog"})
 
-    fun get(): String {
+    fun getWeather(): String {
         if (lastUpdateDate != LocalDate.now(ZoneId.of("UTC"))) {
             updateDate()
 
-            val temperature = randomTemperature(-25, 35)
+            val temperature = getRandomNumber(-25, 35)
+            val windSpeed = getRandomNumber(0, 20)
             val weathers = bothWeathers + if (temperature >= 0) hotWeathers else coldWeathers
 
+
             currentWeather = "Weather: ${weathers[random.nextInt(weathers.size)]}\n" +
-                             "Temperature: $temperature" + "ºC"
+                             "Temperature: $temperature" + "ºC\n" +
+                             "Wind speed: $windSpeed m/s"
         }
         return currentWeather
     }
 
-    fun change() {lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1)}
+    fun changeWeather() {lastUpdateDate = LocalDate.now(ZoneId.of("UTC")).minusDays(1)}
 
-    private fun randomTemperature(min: Int, max: Int): Int {return random.nextInt(max + 1 - min) + min}
+    private fun getRandomNumber(min: Int, max: Int): Int {return random.nextInt(max + 1 - min) + min}
     private fun updateDate() {lastUpdateDate = LocalDate.now(ZoneId.of("UTC"))}
 }

@@ -51,11 +51,11 @@ class WeatherBot(telegramToken: String, adminId: String) {
 
         when (text) {
             "/weather" -> {
-                bot.sendText(chatId, weatherGenerator.get())
+                bot.sendText(chatId, weatherGenerator.getWeather())
             }
             "/change" -> {
                 if (msg.from().id() == adminId) {
-                    weatherGenerator.change()
+                    weatherGenerator.changeWeather()
                     bot.sendText(chatId, "Success!")
                 }
                 else bot.sendText(chatId, "Nice try!")
