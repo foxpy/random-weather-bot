@@ -31,6 +31,7 @@ class WeatherBot(telegramToken: String, adminId: String) {
             val updates = try {bot.execute(GetUpdates().timeout(60).offset(lastUpdateId)).updates() ?: continue}
             catch (e: Exception) {
                 Thread.sleep(500)
+                logger.error("Network unreachable")
                 continue
             }
 
