@@ -29,7 +29,10 @@ class WeatherBot(telegramToken: String, adminId: String) {
 
         while (true) {
             val updates = try {bot.execute(GetUpdates().timeout(60).offset(lastUpdateId)).updates() ?: continue}
-            catch (e: Exception) {continue}
+            catch (e: Exception) {
+                Thread.sleep(500)
+                continue
+            }
 
             for (update in updates) {
                 lastUpdateId = update.updateId() + 1
