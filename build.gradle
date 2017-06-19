@@ -10,7 +10,6 @@ apply plugin: 'application'
 
 group 'com.foxpy'
 version '1.0-SNAPSHOT'
-mainClassName="com.foxpy.weather.MainKt"
 
 repositories {mavenCentral()}
 
