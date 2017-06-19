@@ -51,8 +51,7 @@ class WeatherBot(telegramToken: String, adminId: String) {
 
         when (text) {
             "/weather" -> {
-                val reply = weatherGenerator.get()
-                bot.sendText(chatId, reply)
+                bot.sendText(chatId, weatherGenerator.get())
             }
             "/change" -> {
                 if (msg.from().id() == adminId) {
