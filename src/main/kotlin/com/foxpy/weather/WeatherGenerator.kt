@@ -19,7 +19,7 @@ class WeatherGenerator {
     private val bothWeathers = Array(30, {"sunny"})   + Array(20, {"overcast"}) +
                                Array(15, {"cloudy"})  + Array(5,  {"fog"})
 
-    private val windDirections = arrayListOf('←', '↑', '→', '↓')
+    private val windDirections = arrayListOf("➡️", "⬅️", "⬆️", "⬇️", "↗️", "↘️", "↙️", "↖️")
 
     fun getWeather(): String {
         if (lastUpdateDate != LocalDate.now(ZoneId.of("UTC"))) {
@@ -34,7 +34,7 @@ class WeatherGenerator {
 
             currentWeather = "Weather: ${weathers[random.nextInt(weathers.size)]}\n" +
                              "Temperature: $temperature" + "ºC\n" +
-                             "Wind: $windSpeedMin-$windSpeedMax m/s $windDirection"
+                             "Wind: $windDirection $windSpeedMin-$windSpeedMax m/s"
         }
         return currentWeather
     }
