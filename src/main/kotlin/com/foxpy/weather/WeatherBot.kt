@@ -4,7 +4,7 @@ import com.pengrad.telegrambot.TelegramBot
 import com.pengrad.telegrambot.TelegramBotAdapter
 import com.pengrad.telegrambot.model.Message
 import com.pengrad.telegrambot.model.request.Keyboard
-import com.pengrad.telegrambot.model.request.ReplyKeyboardHide
+import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove
 import com.pengrad.telegrambot.request.GetUpdates
 import com.pengrad.telegrambot.request.SendMessage
 import okhttp3.OkHttpClient
@@ -65,7 +65,7 @@ class WeatherBot(telegramToken: String, adminId: String) {
         }
     }
 
-    private fun TelegramBot.sendText(chatId: Long, text: String, replyMarkup: Keyboard? = ReplyKeyboardHide()) {
+    private fun TelegramBot.sendText(chatId: Long, text: String, replyMarkup: Keyboard? = ReplyKeyboardRemove()) {
         this.execute(SendMessage(chatId, text).replyMarkup(replyMarkup))
     }
 }
