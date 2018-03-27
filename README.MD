@@ -1,6 +1,7 @@
 # Random Weather Bot
-Telegram bot, that generates a random weather once per day (3 AM MSK).  
-May be usable in role-play chats.
+
+Telegram bot which generates random weather once per day (value changes at 3 AM
+MSK). May be usable in group chats for entertainment purposes.
 
 # Commands
 
@@ -11,7 +12,9 @@ Command | Description
 
 # Environment variables
 
+Bot won't start without them. 
+
 Variable | Description
 ------------ | -------------
-**TELEGRAM_TOKEN** | bot token, take it from [BotFather](https://t.me/BotFather).
-**ADMIN_ID** | your Telegram ID (need for `/change`). Taken from [IDBot](https://t.me/myidbot).
+**TELEGRAM_TOKEN** | Bot token, take it from [BotFather](https://t.me/BotFather).
+**ADMIN_ID** | Your Telegram ID (used for `/change`). Taken from [IDBot](https://t.me/myidbot).
