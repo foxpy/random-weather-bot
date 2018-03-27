@@ -1,7 +1,7 @@
 # Random Weather Bot
 
-Telegram bot which generates random weather once per day (value changes at 3 AM
-MSK). May be usable in group chats for entertainment purposes.
+Telegram bot which generates random weather once per day (value changes at
+midnight UTC). May be usable in group chats for entertainment purposes.
 
 # Commands
 
