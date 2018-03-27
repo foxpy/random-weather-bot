@@ -49,19 +49,19 @@ class WeatherBot(telegramToken: String, adminId: String) {
 
         logger.info("[$chatId] [Received] [@${msg.from().username()}: $text]")
 
-        when (text) {
-            "/weather" -> {
+        when {
+            text.startsWith("/weather") -> {
                 bot.sendText(chatId, weatherGenerator.getWeather())
             }
-            "/change" -> {
+            text.startsWith("/change") -> {
                 if (msg.from().id() == adminId) {
                     weatherGenerator.changeWeather()
                     bot.sendText(chatId, "Success!")
                 }
                 else bot.sendText(chatId, "Nice try!")
             }
-            "/help" -> bot.sendText(chatId, "Just type '/weather'.")
-            "/start" -> bot.sendText(chatId, "Daily random weather for role play chats.")
+            text.startsWith("/help") -> bot.sendText(chatId, "Just type '/weather'.")
+            text.startsWith("/start") -> bot.sendText(chatId, "Daily random weather for role play chats.")
         }
     }
 
