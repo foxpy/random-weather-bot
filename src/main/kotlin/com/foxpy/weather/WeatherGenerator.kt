@@ -26,7 +26,7 @@ class WeatherGenerator {
             updateDate()
 
             val temperature = getRandomNumber(-25, 35)
-            val humidity = getRandomNumber(0, 100)
+            val humidity = getRandomNumber(20, 100)
             val windSpeedMin = getRandomNumber(0, 10)
             val windSpeedMax = windSpeedMin + getRandomNumber(1, 10)
             val windDirection = windDirections[random.nextInt(windDirections.size)]
