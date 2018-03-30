@@ -13,6 +13,12 @@ version '1.0-SNAPSHOT'
 
 mainClassName = 'com.foxpy.weather.MainKt'
 
+jar {
+  manifest {
+    attributes('Main-Class': 'com.foxpy.weather.MainKt')
+  }
+}
+
 repositories {mavenCentral()}
 
 dependencies {
