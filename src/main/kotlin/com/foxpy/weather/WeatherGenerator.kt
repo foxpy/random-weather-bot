@@ -25,16 +25,21 @@ class WeatherGenerator {
         if (lastUpdateDate != LocalDate.now(ZoneId.of("UTC"))) {
             updateDate()
 
-            val temperature = getRandomNumber(-25, 35)
+            val temperatureDay = getRandomNumber(-25, 35)
+            val temperatureNight = temperatureDay - getRandomNumber(3, 15)
+
             val humidity = getRandomNumber(20, 100)
+
             val windSpeedMin = getRandomNumber(0, 10)
             val windSpeedMax = windSpeedMin + getRandomNumber(1, 10)
             val windDirection = windDirections[random.nextInt(windDirections.size)]
-            val weathers = bothWeathers + if (temperature >= 0) hotWeathers else coldWeathers
+
+            val weathers = bothWeathers + if (temperatureDay >= 0) hotWeathers else coldWeathers
 
 
             currentWeather = "Weather: ${weathers[random.nextInt(weathers.size)]}\n" +
-                             "Temperature: $temperature" + "ºC\n" +
+                             "Temperature day: $temperatureDay" + "ºC\n" +
+                             "Temperature night: $temperatureNight" + "ºC\n" +
                              "Humidity: $humidity%\n" +
                              "Wind: $windDirection $windSpeedMin-$windSpeedMax m/s"
         }
