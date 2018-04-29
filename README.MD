@@ -3,6 +3,8 @@
 Telegram bot which generates random weather once per day (value changes at
 midnight UTC). May be usable in group chats for entertainment purposes.
 
+## I am going to rewrite bot in Python and continue development then
+
 # Commands
 
 Command | Description
