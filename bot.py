@@ -17,7 +17,6 @@ def start(bot, update):
     log("START", update.effective_chat.id, update.message.text)
 
 
-
 # I don't want to override Python's built-in help object
 def help_cmd(bot, update):
     update.message.reply_text("Just type '/weather'.")
