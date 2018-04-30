@@ -27,8 +27,8 @@ class WeatherGenerator:
 
     def get_weather(self):
         today = datetime.utcnow()
-        # TODO: make it fancier
-        if (today.year, today.month, today.day) > (self.last_update_date.year, self.last_update_date.month, self.last_update_date.day):
+        if (today.year, today.month, today.day) > \
+        (self.last_update_date.year, self.last_update_date.month, self.last_update_date.day):
             self.last_update_date = datetime.utcnow()
 
             temperature_day = randint(-25, 35)
