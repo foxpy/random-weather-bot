@@ -31,6 +31,12 @@ def weather(bot, update):
     log("WEATHER", update.effective_chat.id, update.message.text)
 
 
+def change(bot, update):
+    # FIXME: everyone has power to change weather
+    weather_generator.change_weather()
+    log("CHANGE", update.effective_chat.id, update.message.text)
+
+
 def error(bot, update, error):
     logger.warning("Update \"%s\" caused error \"%s\"", update, error)
 
@@ -43,6 +49,7 @@ def run(token, admin_id):
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help_cmd))
     dp.add_handler(CommandHandler("weather", weather))
+    dp.add_handler(CommandHandler("change", change))
 
     dp.add_error_handler(error)
 
