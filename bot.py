@@ -17,13 +17,11 @@ def log(command_type, chat_id, message_text):
 
 def start(bot, update):
     update.message.reply_text("Daily random weather for role play chats.")
-    log("START", update.effective_chat.id, update.message.text)
 
 
 # I don't want to override Python's built-in help object
 def help_cmd(bot, update):
     update.message.reply_text("Just type '/weather'.")
-    log("HELP", update.effective_chat.id, update.message.text)
 
 
 def weather(bot, update):
