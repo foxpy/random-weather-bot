@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import os
 import sys
-import bot
+from bot import WeatherBot
 
 
 def get_env_variable(variable_name):
@@ -16,4 +16,5 @@ TELEGRAM_TOKEN = get_env_variable("TELEGRAM_TOKEN")
 ADMIN_ID = get_env_variable("ADMIN_ID")
 
 if __name__ == "__main__":
-    bot.run(TELEGRAM_TOKEN, ADMIN_ID)
+    weather_bot = WeatherBot(TELEGRAM_TOKEN, ADMIN_ID)
+    weather_bot.run()

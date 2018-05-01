@@ -10,46 +10,52 @@ logger = logging.getLogger(__name__)
 weather_generator = WeatherGenerator()
 
 
-def log(command_type, chat_id, message_text):
-    logger.info("[{}] - [{}] - Received: {}".format(command_type, chat_id,
-        message_text))
+class WeatherBot:
+    def __init__(self, token, admin_id):
+        self.token = token
+        self.admin_id = admin_id
 
 
-def start(bot, update):
-    update.message.reply_text("Daily random weather for role play chats.")
+    def log(self, command_type, chat_id, message_text):
+        logger.info("[{}] - [{}] - Received: {}".format(command_type, chat_id,
+            message_text))
 
 
-# I don't want to override Python's built-in help object
-def help_cmd(bot, update):
-    update.message.reply_text("Just type '/weather'.")
+    def start(self, bot, update):
+        update.message.reply_text("Daily random weather for role play chats.")
 
 
-def weather(bot, update):
-    update.message.reply_text(weather_generator.get_weather())
-    log("WEATHER", update.effective_chat.id, update.message.text)
+    # I don't want to override Python's built-in help object
+    def help_cmd(self, bot, update):
+        update.message.reply_text("Just type '/weather'.")
 
 
-def change(bot, update):
-    # FIXME: everyone has power to change weather
-    weather_generator.change_weather()
-    log("CHANGE", update.effective_chat.id, update.message.text)
+    def weather(self, bot, update):
+        update.message.reply_text(weather_generator.get_weather())
+        self.log("WEATHER", update.effective_chat.id, update.message.text)
 
 
-def error(bot, update, error):
-    logger.warning("Update \"%s\" caused error \"%s\"", update, error)
+    def change(self, bot, update):
+        # FIXME: everyone has power to change weather
+        weather_generator.change_weather()
+        self.log("CHANGE", update.effective_chat.id, update.message.text)
 
 
-def run(token, admin_id):
-    updater = Updater(token)
+    def error(self, bot, update, error):
+        logger.warning("Update \"%s\" caused error \"%s\"", update, error)
 
-    dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help_cmd))
-    dp.add_handler(CommandHandler("weather", weather))
-    dp.add_handler(CommandHandler("change", change))
+    def run(self):
+        self.updater = Updater(self.token)
 
-    dp.add_error_handler(error)
+        self.dp = self.updater.dispatcher
 
-    updater.start_polling()
-    updater.idle()
+        self.dp.add_handler(CommandHandler("start", self.start))
+        self.dp.add_handler(CommandHandler("help", self.help_cmd))
+        self.dp.add_handler(CommandHandler("weather", self.weather))
+        self.dp.add_handler(CommandHandler("change", self.change))
+
+        self.dp.add_error_handler(self.error)
+
+        self.updater.start_polling()
+        self.updater.idle()
