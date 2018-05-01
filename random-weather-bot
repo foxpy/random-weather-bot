@@ -1,0 +1,20 @@
+#!/usr/bin/python
+import os
+import sys
+from bot import WeatherBot
+
+
+def get_env_variable(variable_name):
+    if variable_name in os.environ:
+        return os.environ[variable_name]
+    else:
+        print("You must set {} environment variable.".format(variable_name))
+        sys.exit(-1)
+
+
+TELEGRAM_TOKEN = get_env_variable("TELEGRAM_TOKEN")
+ADMIN_ID = get_env_variable("ADMIN_ID")
+
+if __name__ == "__main__":
+    weather_bot = WeatherBot(TELEGRAM_TOKEN, ADMIN_ID)
+    weather_bot.run()
