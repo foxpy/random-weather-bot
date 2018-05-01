@@ -34,8 +34,7 @@ class WeatherGenerator:
             temperature_day = randint(-25, 35)
             temperature_night = temperature_day - randint(3, 15)
 
-            weather_type = choice(both_weathers + hot_weathers if temperature_day > 0
-                    else both_weathers + cold_weathers)
+            weather_type = choice(both_weathers + (hot_weathers if temperature_day > 0 else cold_weathers))
 
             humidity = randint(20, 100)
 
