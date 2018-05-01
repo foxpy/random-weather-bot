@@ -25,8 +25,7 @@ class WeatherBot:
         update.message.reply_text("Daily random weather for role play chats.")
 
 
-    # I don't want to override Python's built-in help object
-    def help_cmd(self, bot, update):
+    def help(self, bot, update):
         update.message.reply_text("Just type '/weather'.")
 
 
@@ -54,7 +53,7 @@ class WeatherBot:
         self.dp = self.updater.dispatcher
 
         self.dp.add_handler(CommandHandler("start", self.start))
-        self.dp.add_handler(CommandHandler("help", self.help_cmd))
+        self.dp.add_handler(CommandHandler("help", self.help))
         self.dp.add_handler(CommandHandler("weather", self.weather))
         self.dp.add_handler(CommandHandler("change", self.change))
 
