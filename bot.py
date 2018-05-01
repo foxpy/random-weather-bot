@@ -13,7 +13,7 @@ weather_generator = WeatherGenerator()
 class WeatherBot:
     def __init__(self, token, admin_id):
         self.token = token
-        self.admin_id = admin_id
+        self.admin_id = int(admin_id)
 
 
     def log(self, command_type, chat_id, message_text):
@@ -36,8 +36,11 @@ class WeatherBot:
 
 
     def change(self, bot, update):
-        # FIXME: everyone has power to change weather
-        weather_generator.change_weather()
+        if update.effective_user.id == self.admin_id:
+            weather_generator.change_weather()
+            update.message.reply_text("Weather successfully changed.")
+        else:
+            update.message.reply_text("Nice try!")
         self.log("CHANGE", update.effective_chat.id, update.message.text)
 
 
