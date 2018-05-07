@@ -16,9 +16,9 @@ class WeatherBot:
         self.admin_id = int(admin_id)
 
 
-    def log(self, command_type, chat_id, message_text):
-        logger.info("[{}] - [{}] - Received: {}".format(command_type, chat_id,
-            message_text))
+    def log(self, command_type, chat_id, username, message_text):
+        logger.info("[{}] - [{}]\t@{} - Text: {}".format(command_type,
+            chat_id, username, message_text))
 
 
     def start(self, bot, update):
@@ -31,7 +31,8 @@ class WeatherBot:
 
     def weather(self, bot, update):
         update.message.reply_text(weather_generator.get_weather())
-        self.log("WEATHER", update.effective_chat.id, update.message.text)
+        self.log("WEATHER", update.effective_chat.id,
+                update.effective_user.username, update.message.text)
 
 
     def change(self, bot, update):
@@ -40,8 +41,8 @@ class WeatherBot:
             update.message.reply_text("Weather successfully changed.")
         else:
             update.message.reply_text("Nice try!")
-        self.log("CHANGE", update.effective_chat.id, update.message.text)
-
+        self.log("CHANGE", update.effective_chat.id,
+                update.effective_user.username, update.message.text)
 
     def error(self, bot, update, error):
         logger.warning("Update \"%s\" caused error \"%s\"", update, error)
