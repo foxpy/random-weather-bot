@@ -15,7 +15,7 @@ wind_directions = [chr(0x27A1) + chr(0xFE0F),   # E
                    chr(0x2196) + chr(0xFE0F)]   # NW
 
 hot_weathers = 20*["rain"] + 5*["thunderstorm"] + 5*["shower"]
-cold_weathers = 20*["snow"] + 5*["snowstorm"] + 5*["drizzle"]
+cold_weathers = 20*["snow"] + 5*["snowstorm"] + 5*["hail"]
 both_weathers = 30*["sunny"] + 20*["overcast"] + 15*["cloudy"] + 5*["fog"]
 
 
