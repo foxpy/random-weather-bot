@@ -31,8 +31,8 @@ class WeatherGenerator:
         (self.last_update_date.year, self.last_update_date.month, self.last_update_date.day):
             self.last_update_date = datetime.utcnow()
 
-            temperature_day = randint(-25, 35)
-            temperature_night = temperature_day - randint(3, 15)
+            temperature_day = randint(-30, 40)
+            temperature_night = temperature_day - randint(3, 17)
 
             weather_type = choice(both_weathers + (hot_weathers if temperature_day > 0 else cold_weathers))
 
