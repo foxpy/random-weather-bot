@@ -42,9 +42,14 @@ class WeatherGenerator:
             wind_speed_max = wind_speed_min + randint(1, 10)
             wind_direction = choice(wind_directions)
 
+            temperature_feel = (temperature_day + temperature_night) / 2\
+                    / (wind_speed_min + wind_speed_max) * 15\
+                    * humidity / 50
+
             self.current_weather = f"Weather: {weather_type}\n" + \
                 f"Temperature day: {temperature_day}{degrees}\n" + \
                 f"Temperature night: {temperature_night}{degrees}\n" + \
+                f"Feels like: {temperature_feel}{degrees}\n" + \
                 f"Humidity: {humidity}%\n" + \
                 f"Wind: {wind_direction} {wind_speed_min}-{wind_speed_max} m/s"
 
