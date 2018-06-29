@@ -36,15 +36,14 @@ class WeatherGenerator:
 
             weather_type = choice(both_weathers + (hot_weathers if temperature_day > 0 else cold_weathers))
 
-            humidity = randint(20, 100)
+            humidity = randint(20, 90)
 
             wind_speed_min = randint(0, 10)
             wind_speed_max = wind_speed_min + randint(1, 10)
             wind_direction = choice(wind_directions)
 
-            temperature_feel = int((temperature_day + temperature_night) / 2\
-                    / (wind_speed_min + wind_speed_max) * 15\
-                    * humidity / 50)
+            wind_temperature_affect = -wind_speed_min/2 if wind_speed_max < 5 else wind_speed_min/2
+            temperature_feel = int(round(temperature_day*1.1 - wind_temperature_affect * humidity/30, 0))
 
             self.current_weather = f"Weather: {weather_type}\n" + \
                 f"Temperature day: {temperature_day}{degrees}\n" + \
