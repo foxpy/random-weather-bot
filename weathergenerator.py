@@ -43,7 +43,7 @@ class WeatherGenerator:
             wind_direction = choice(wind_directions)
 
             wind_temperature_affect = -wind_speed_min/2 if wind_speed_max < 5 else wind_speed_min/2
-            temperature_feel = int(round(temperature_day*1.1 - wind_temperature_affect * humidity/30, 0))
+            temperature_feel = int(round((temperature_day*2.1 - wind_temperature_affect * humidity/30) / 2, 0))
 
             self.current_weather = f"Weather: {weather_type}\n" + \
                 f"Temperature day: {temperature_day}{degrees}\n" + \
