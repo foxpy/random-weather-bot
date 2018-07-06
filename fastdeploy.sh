@@ -10,5 +10,5 @@ git_version="$(git rev-parse HEAD)"
 git_version="${git_version:0:10}"
 
 
-container_name="$repo_name-$git_version"
+container_name="$repo_name:$git_version"
 docker build -t "$container_name" .
