@@ -28,7 +28,7 @@ class WeatherType:
             f"Wind speed: {wind_speed}\n"
 
 weather_types = \
-        [WeatherType(["sunny, cloudy", "rain"],
+        [WeatherType(["sunny", "cloudy", "rain"],
                 (3, 40), (-2, 37), (2, 20), (10, 90)),
         WeatherType(["sunny", "cloudy", "snow"],
                 (-25, 0), (-32, -2), (2, 20), (10, 90))]
