@@ -1,59 +1,13 @@
-from random import randint, choice
-from datetime import datetime, timedelta
-
-
-# This is the way to store special Unicode characters.
-# I hate how they break in dumb operating systems.
-degrees = chr(0xBA) + "C"
-wind_directions = [chr(0x27A1) + chr(0xFE0F),   # E
-                   chr(0x2B05) + chr(0xFE0F),   # W
-                   chr(0x2B06) + chr(0xFE0F),   # N
-                   chr(0x2B07) + chr(0xFE0F),   # S
-                   chr(0x2197) + chr(0xFE0F),   # NE
-                   chr(0x2198) + chr(0xFE0F),   # SE
-                   chr(0x2199) + chr(0xFE0F),   # SW
-                   chr(0x2196) + chr(0xFE0F)]   # NW
-
-hot_weathers = 20*["rain"] + 5*["thunderstorm"] + 5*["shower"]
-cold_weathers = 20*["snow"] + 5*["snowstorm"] + 5*["hail"]
-both_weathers = 30*["sunny"] + 20*["overcast"] + 15*["cloudy"] + 5*["fog"]
-
-
-class WeatherGenerator:
-    current_weather = str()
-
-    last_update_date = datetime.utcnow() - timedelta(days=1)
-
-
-    def get_weather(self):
-        today = datetime.utcnow()
-        if (today.year, today.month, today.day) > \
-        (self.last_update_date.year, self.last_update_date.month, self.last_update_date.day):
-            self.last_update_date = datetime.utcnow()
-
-            temperature_day = randint(-30, 40)
-            temperature_night = temperature_day - randint(3, 17)
-
-            weather_type = choice(both_weathers + (hot_weathers if temperature_day > 0 else cold_weathers))
-
-            humidity = randint(20, 90)
-
-            wind_speed_min = randint(0, 10)
-            wind_speed_max = wind_speed_min + randint(1, 10)
-            wind_direction = choice(wind_directions)
-
-            wind_temperature_affect = -wind_speed_min/2 if wind_speed_max < 5 else wind_speed_min/2
-            temperature_feel = int(round((temperature_day*2.1 - wind_temperature_affect * humidity/30) / 2, 0))
-
-            self.current_weather = f"Weather: {weather_type}\n" + \
-                f"Temperature day: {temperature_day}{degrees}\n" + \
-                f"Temperature night: {temperature_night}{degrees}\n" + \
-                f"Feels like: {temperature_feel}{degrees}\n" + \
-                f"Humidity: {humidity}%\n" + \
-                f"Wind: {wind_direction} {wind_speed_min}-{wind_speed_max} m/s"
-
-        return self.current_weather
-
-
-    def change_weather(self):
-        self.last_update_date = datetime.utcnow() - timedelta(days=1)
+class WeatherType:
+    def __init__(self, weathers, temperature_range, temperature_night_offset,
+            wind_range, humidity_range):
+        self.__weathers = weathers
+        self.__min_temp_day, self.__max_temp_day = \
+                tuple(temperature_range)
+        self.__min_temp_night, self.__max_temp_night = \
+                tuple(map(lambda x: x- temperature_night_offset,
+                    temperature_range))
+        self.__min_wind_speed, self.__max_wind_speed = \
+                tuple(wind_range)
+        self.__min_humidity, self.__max_humidity = \
+                tuple(humidity_range)
