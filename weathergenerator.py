@@ -11,3 +11,10 @@ class WeatherType:
                 tuple(wind_range)
         self.__min_humidity, self.__max_humidity = \
                 tuple(humidity_range)
+
+# FIXME: temperature_night_offset is always the same
+weather_types = \
+        [WeatherType(["sunny, cloudy", "rain"],
+                (3, 40), 7, (2, 20), (10, 90)),
+        WeatherType(["sunny", "cloudy", "snow"],
+                (-25, 0), 7, (2, 20), (10, 90))]
