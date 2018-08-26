@@ -2,12 +2,12 @@ from random import choice, randint
 
 class WeatherType:
     def __init__(self, weathers, temperature_day_range,
-            temperature_night_range, wind_range, humidity_range):
+            temperature_night_offset_range, wind_range, humidity_range):
         self.__weathers = weathers
         self.__min_temp_day, self.__max_temp_day = \
                 tuple(temperature_day_range)
-        self.__min_temp_night, self.__max_temp_night = \
-                tuple(temperature_night_range)
+        self.__min_temp_night_offset, self.__max_temp_night_offset = \
+                tuple(temperature_night_offset_range)
         self.__min_wind_speed, self.__max_wind_speed = \
                 tuple(wind_range)
         self.__min_humidity, self.__max_humidity = \
@@ -16,8 +16,9 @@ class WeatherType:
     def get_weather(self):
         weather = choice(self.__weathers)
         temperature_day = randint(self.__min_temp_day, self.__max_temp_day)
-        temperature_night = randint(self.__min_temp_night,
-                self.__max_temp_night)
+        temperature_night = temperature_day - \
+                randint(self.__min_temp_night_offset,
+                        self.__max_temp_night_offset)
         humidity = randint(self.__min_humidity, self.__max_humidity)
         wind_speed = randint(self.__min_wind_speed, self.__max_wind_speed)
 
@@ -29,6 +30,6 @@ class WeatherType:
 
 weather_types = \
         [WeatherType(["sunny", "cloudy", "rain"],
-                (3, 40), (-2, 37), (2, 20), (10, 90)),
+                (3, 40), (2, 8), (2, 20), (10, 90)),
         WeatherType(["sunny", "cloudy", "snow"],
-                (-25, 0), (-32, -2), (2, 20), (10, 90))]
+                (-25, 0), (3, 10), (2, 20), (10, 90))]
