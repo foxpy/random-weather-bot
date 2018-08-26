@@ -1,5 +1,14 @@
 from random import choice, randint
 
+wind_directions = [chr(0x2B06) + chr(0xFE0F),   # N
+                   chr(0x27A1) + chr(0xFE0F),   # E
+                   chr(0x2B05) + chr(0xFE0F),   # W
+                   chr(0x2B07) + chr(0xFE0F),   # S
+                   chr(0x2197) + chr(0xFE0F),   # NE
+                   chr(0x2196) + chr(0xFE0F),   # NW
+                   chr(0x2198) + chr(0xFE0F),   # SE
+                   chr(0x2199) + chr(0xFE0F)]   # SW
+
 class WeatherType:
     def __init__(self, weathers, temperature_day_range,
             temperature_night_offset_range, wind_range, humidity_range):
@@ -21,12 +30,13 @@ class WeatherType:
                         self.__max_temp_night_offset)
         humidity = randint(self.__min_humidity, self.__max_humidity)
         wind_speed = randint(self.__min_wind_speed, self.__max_wind_speed)
+        wind_direction = choice(wind_directions)
 
         return f"Weather: {weather}\n" + \
             f"Temperature day: {temperature_day}\n" + \
             f"Temperature night: {temperature_night}\n" + \
             f"Humidity: {humidity}\n" + \
-            f"Wind speed: {wind_speed}\n"
+            f"Wind speed: {wind_direction} {wind_speed}\n"
 
 weather_types = \
         [WeatherType(["sunny", "cloudy", "rain"],
