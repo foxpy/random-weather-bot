@@ -10,41 +10,46 @@ wind_directions = [chr(0x2B06) + chr(0xFE0F),   # N
                    chr(0x2198) + chr(0xFE0F),   # SE
                    chr(0x2199) + chr(0xFE0F)]   # SW
 
-class WeatherType:
-    def __init__(self, weathers, temperature_day_range,
-            temperature_night_offset_range, wind_range, humidity_range):
-        self.__weathers = weathers
-        self.__min_temp_day, self.__max_temp_day = \
-                tuple(temperature_day_range)
-        self.__min_temp_night_offset, self.__max_temp_night_offset = \
-                tuple(temperature_night_offset_range)
-        self.__min_wind_speed, self.__max_wind_speed = \
-                tuple(wind_range)
-        self.__min_humidity, self.__max_humidity = \
-                tuple(humidity_range)
+class WeatherGenerator:
+
+    class WeatherType:
+        def __init__(self, weathers, temperature_day_range,
+                temperature_night_offset_range, wind_range, humidity_range):
+            self.__weathers = weathers
+            self.__min_temp_day, self.__max_temp_day = \
+                    tuple(temperature_day_range)
+            self.__min_temp_night_offset, self.__max_temp_night_offset = \
+                    tuple(temperature_night_offset_range)
+            self.__min_wind_speed, self.__max_wind_speed = \
+                    tuple(wind_range)
+            self.__min_humidity, self.__max_humidity = \
+                    tuple(humidity_range)
+
+        def get_weather(self):
+            weather = choice(self.__weathers)
+            temperature_day = randint(self.__min_temp_day, self.__max_temp_day)
+            temperature_night = temperature_day - \
+                    randint(self.__min_temp_night_offset,
+                            self.__max_temp_night_offset)
+            humidity = randint(self.__min_humidity, self.__max_humidity)
+            wind_speed = randint(self.__min_wind_speed, self.__max_wind_speed)
+            wind_direction = choice(wind_directions)
+
+            return f"Weather: {weather}\n" + \
+                f"Temperature day: {temperature_day}{degrees}\n" + \
+                f"Temperature night: {temperature_night}{degrees}\n" + \
+                f"Humidity: {humidity}%\n" + \
+                f"Wind speed: {wind_direction} {wind_speed} m/s\n"
+
+    weather_types = \
+            [WeatherType(["sunny", "cloudy", "rain"],
+                    (3, 40), (2, 8), (2, 20), (10, 90)),
+            WeatherType(["sunny", "cloudy", "snow"],
+                    (-25, 0), (3, 10), (2, 20), (10, 90)),
+            WeatherType(["fog", "overcast", "drizzle"],
+                    (2, 22), (2, 4), (0, 3), (80, 95)),
+            WeatherType(["thunderstorm"],
+                    (3, 30), (2, 6), (4, 24), (60, 95))]
 
     def get_weather(self):
-        weather = choice(self.__weathers)
-        temperature_day = randint(self.__min_temp_day, self.__max_temp_day)
-        temperature_night = temperature_day - \
-                randint(self.__min_temp_night_offset,
-                        self.__max_temp_night_offset)
-        humidity = randint(self.__min_humidity, self.__max_humidity)
-        wind_speed = randint(self.__min_wind_speed, self.__max_wind_speed)
-        wind_direction = choice(wind_directions)
-
-        return f"Weather: {weather}\n" + \
-            f"Temperature day: {temperature_day}{degrees}\n" + \
-            f"Temperature night: {temperature_night}{degrees}\n" + \
-            f"Humidity: {humidity}%\n" + \
-            f"Wind speed: {wind_direction} {wind_speed} m/s\n"
-
-weather_types = \
-        [WeatherType(["sunny", "cloudy", "rain"],
-                (3, 40), (2, 8), (2, 20), (10, 90)),
-        WeatherType(["sunny", "cloudy", "snow"],
-                (-25, 0), (3, 10), (2, 20), (10, 90)),
-        WeatherType(["fog", "overcast", "drizzle"],
-                (2, 22), (2, 4), (0, 3), (80, 95)),
-        WeatherType(["thunderstorm"],
-                (3, 30), (2, 6), (4, 24), (60, 95))]
+        return choice(self.weather_types).get_weather()
