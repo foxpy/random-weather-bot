@@ -43,4 +43,8 @@ weather_types = \
         [WeatherType(["sunny", "cloudy", "rain"],
                 (3, 40), (2, 8), (2, 20), (10, 90)),
         WeatherType(["sunny", "cloudy", "snow"],
-                (-25, 0), (3, 10), (2, 20), (10, 90))]
+                (-25, 0), (3, 10), (2, 20), (10, 90)),
+        WeatherType(["fog", "overcast", "drizzle"],
+                (2, 22), (2, 4), (0, 3), (80, 95)),
+        WeatherType(["thunderstorm"],
+                (3, 30), (2, 6), (4, 24), (60, 95))]
