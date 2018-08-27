@@ -1,5 +1,6 @@
 from random import choice, randint
 
+degrees = chr(0xBA) + "C"
 wind_directions = [chr(0x2B06) + chr(0xFE0F),   # N
                    chr(0x27A1) + chr(0xFE0F),   # E
                    chr(0x2B05) + chr(0xFE0F),   # W
@@ -33,10 +34,10 @@ class WeatherType:
         wind_direction = choice(wind_directions)
 
         return f"Weather: {weather}\n" + \
-            f"Temperature day: {temperature_day}\n" + \
-            f"Temperature night: {temperature_night}\n" + \
-            f"Humidity: {humidity}\n" + \
-            f"Wind speed: {wind_direction} {wind_speed}\n"
+            f"Temperature day: {temperature_day}{degrees}\n" + \
+            f"Temperature night: {temperature_night}{degrees}\n" + \
+            f"Humidity: {humidity}%\n" + \
+            f"Wind speed: {wind_direction} {wind_speed} m/s\n"
 
 weather_types = \
         [WeatherType(["sunny", "cloudy", "rain"],
