@@ -48,14 +48,16 @@ class WeatherType:
 
 class WeatherGenerator():
     weather_types = \
-            [WeatherType(["sunny", "cloudy", "rain"],
+            [WeatherType(["sunny", "cloudy", "rain", "rainbow"],
                     (3, 40), (2, 8), (2, 10, 3, 10), (10, 90)),
             WeatherType(["sunny", "cloudy", "snow"],
                     (-25, 0), (3, 10), (2, 10, 3, 10), (10, 90)),
             WeatherType(["fog", "overcast", "drizzle"],
                     (2, 22), (2, 4), (0, 3, 1, 2), (80, 95)),
             WeatherType(["thunderstorm"],
-                    (3, 30), (2, 6), (4, 14, 5, 12), (60, 95))]
+                    (3, 30), (2, 6), (4, 14, 5, 12), (60, 95)),
+            WeatherType(["snowstorm"],
+                    (-30, -5), (4, 8), (4, 8, 6, 12), (75, 95))]
 
     def get_weather(self):
         return choice(self.weather_types).get_weather()
