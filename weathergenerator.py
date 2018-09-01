@@ -1,4 +1,5 @@
 from random import choice, randint
+from datetime import datetime, timedelta
 
 degrees = chr(0xBA) + "C"
 wind_directions = [chr(0x2B06) + chr(0xFE0F),   # N
@@ -47,6 +48,8 @@ class WeatherType:
 
 
 class WeatherGenerator():
+    current_weather = str()
+    last_update_date = datetime.utcnow() - timedelta(days=1)
     weather_types = \
             [WeatherType(["sunny", "cloudy", "rain", "rainbow"],
                     (3, 40), (2, 8), (2, 10, 3, 10), (10, 90)),
@@ -60,4 +63,14 @@ class WeatherGenerator():
                     (-30, -5), (4, 8), (4, 8, 6, 12), (75, 95))]
 
     def get_weather(self):
-        return choice(self.weather_types).get_weather()
+        today = datetime.utcnow()
+        if (today.year, today.month, today.day) > \
+        (self.last_update_date.year, self.last_update_date.month,
+         self.last_update_date.day):
+            self.last_update_date = datetime.utcnow()
+            self.current_weather = choice(self.weather_types).get_weather()
+
+        return self.current_weather
+
+    def change_weather(self):
+        self.last_update_date = datetime.utcnow() - timedelta(days=1)
